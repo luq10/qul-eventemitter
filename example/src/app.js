@@ -3,23 +3,68 @@
 
   angular.module('app', ['qul.eventemitter'])
     .factory('Service', function(EventEmitter){
+      //function Service(){
+      //  EventEmitter.call(this);
+      //
+      //  this.data = [];
+      //
+      //  /**
+      //   * Push new data
+      //   */
+      //  this.push = function(item){
+      //    this.data.push(item);
+      //
+      //    this.fire('update', this.data);
+      //  }
+      //}
+      //
+      //// Inheriting
+      //Service.prototype = EventEmitter.prototype;
+      //
+      //return new Service();
+
+      /**
+       *
+       * @constructor
+       */
       function Service(){
+        EventEmitter.call(this);
+
         this.data = [];
 
-        /**
-         * Push new data
-         */
         this.push = function(item){
           this.data.push(item);
 
           this.fire('update', this.data);
-        }
+        };
       }
 
       // Inheriting
-      Service.prototype = EventEmitter.prototype;
+      Service.prototype = Object.create(EventEmitter.prototype);
 
       return new Service();
+    })
+    .factory('Service2', function(EventEmitter){
+      /**
+       *
+       * @constructor
+       */
+      function Service2(){
+        EventEmitter.call(this);
+
+        this.data = [];
+
+        this.push = function(item){
+          this.data.push(item);
+
+          this.fire('update', this.data);
+        };
+      }
+
+      // Inheriting
+      Service2.prototype = Object.create(EventEmitter.prototype);
+
+      return new Service2();
     })
     .factory('OtherService', function(EventEmitter){
       /**
@@ -48,9 +93,10 @@
         return new OtherService(data)
       };
     })
-    .controller('ExampleController', function($scope, $interval, Service, OtherService){
+    .controller('ExampleController', function($scope, $interval, Service, Service2, OtherService){
       this.data = {
         service: [],
+        service2: [],
         otherService: [],
         otherService2: []
       };
@@ -61,6 +107,9 @@
        * Singleton service inheriting events
        */
 
+      console.log(Service);
+      console.log(Service2);
+
       // Add listener
       Service.on('update', function(data){
         console.log('service updated', data);
@@ -68,9 +117,20 @@
         this.data.service = data;
       }.bind(this), $scope);
 
-      Service.push(1);
-      Service.push(2);
       Service.push(3);
+      Service.push(2);
+      Service.push(1);
+
+      // Add listener
+      Service2.on('update', function(data){
+        console.log('service2 updated', data);
+
+        this.data.service2 = data;
+      }.bind(this), $scope);
+
+      Service2.push(9);
+      Service2.push(8);
+      Service2.push(7);
 
       /**
        * Advance example
@@ -104,8 +164,12 @@
       otherService.push(5);
 
       var i = 2;
+      var j = 0;
+      var k = 6;
       $interval(function(){
         otherService2.push(i++);
+        Service.push(j--);
+        Service2.push(k--);
       }, 500);
 
       // Important!
@@ -118,6 +182,7 @@
         console.log(otherService.events._listeners);
         console.log(otherService2.events._listeners);
         console.log(Service._listeners);
+        console.log(Service2._listeners);
       });
 
       //$scope.$destroy();

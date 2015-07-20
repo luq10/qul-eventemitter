@@ -9,13 +9,16 @@
   <div ng-controller="ExampleController as example">
     <pre>{{example}}</pre>
     Service
-    <div ng-repeat="item in example.data.service">{{item}}</div>
+    <div ng-repeat="item in example.data.service track by $index">{{item}}</div>
+
+    Service2
+    <div ng-repeat="item in example.data.service2 track by $index">{{item}}</div>
 
     OtherService
-    <div ng-repeat="item in example.data.otherService">{{item}}</div>
+    <div ng-repeat="item in example.data.otherService track by $index">{{item}}</div>
 
     OtherService2
-    <div ng-repeat="item in example.data.otherService2">{{item}}</div>
+    <div ng-repeat="item in example.data.otherService2 track by $index">{{item}}</div>
   </div>
 
   <script src="./bower/angular/angular.min.js"></script>
