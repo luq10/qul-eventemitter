@@ -2,8 +2,30 @@
  
 Event Emitter for angular.js services
 
-# Usage
+# Methods
 
+* `on(name, fn, [scope])` - Add listener for event. Return listener hash used to remove (`off()` method)
+* `off(listenerHash)` - Remove listener
+* `fire(name, data)` - Fire event
+ 
+# Basic usage
+```js
+// In Service
+    // Inheriting EventEmitter
+    someMethod: function(item){
+        this.data.push(item);
+        
+        this.fire('update', this.data);
+    }
+
+// In Controller
+    Service.on('update', function(data){
+      $scope.data = data;
+    })
+``` 
+ 
+
+# Usage
 
 ```js
 (function(){
