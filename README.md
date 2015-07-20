@@ -1,3 +1,11 @@
+# angular-eventemitter
+ 
+Event Emitter for angular.js services
+
+# Usage
+
+
+```js
 (function(){
   'use strict';
 
@@ -168,3 +176,4 @@
       //$scope.$destroy();
     })
 }());
+```
