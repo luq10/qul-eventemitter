@@ -5,11 +5,15 @@
     "Łukasz Sałajczyk <l.salajczyk@gmail.com>"
   ],
   "description": "EventEmitter for angular services",
-  "main": "src/EventEmitter.service.js",
+  "main": "./src/EventEmitter.service.js",
   "keywords": [
     "eventemitter",
     "events",
     "service events"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "example/bower/**/*"
+  ]
 }
