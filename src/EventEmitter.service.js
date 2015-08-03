@@ -95,7 +95,7 @@
           return;
         }
 
-        this._listeners[name].splice(index);
+        this._listeners[name].splice(index, 1);
 
         // Remove empty
         if(0 === listeners.length){
