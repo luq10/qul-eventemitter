@@ -1,4 +1,4 @@
-# angular-eventemitter
+# qul-eventemitter
  
 Event Emitter for angular.js services
 
